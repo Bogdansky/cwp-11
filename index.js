@@ -5,6 +5,7 @@ const readFilm = require("./handlers/readFilm.js").readFilm;
 const createFilm = require("./handlers/createFilm.js").createFilm;
 const updateFilm = require("./handlers/updateFilm.js").updateFilm;
 const deleteFilm = require("./handlers/deleteFilm.js").deleteFilm;
+const childProcess = require('child_process');
 
 app.get('/api/films/readall', (req, res) =>
 {
@@ -58,6 +59,7 @@ app.get('/', (req, res) => {
 
 app.listen(3000, () => {
 	console.log('Example app listening on port 3000!');
+	childProcess.spawn("node", ["log (task 10.2.6)/logger.js"]);
 });
 
 function parseBodyJson(req, cb) {
