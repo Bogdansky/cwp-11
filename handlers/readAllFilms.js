@@ -1,4 +1,5 @@
 let films = require("../top250.json");
+const fs = require('fs');
 const defaultValues = {
 	"sortField": "position",
 	"sortOrder": "asc"
@@ -19,6 +20,6 @@ function compareCustom(a, b) {
 
 module.exports.readAll = function(req, res, cb) {
 	films.sort(compareCustom);
-	console.log(films);
+	fs.writeFile("top250.json", JSON.stringify(films), "utf8", () => {});
 	cb(null, films);
 };

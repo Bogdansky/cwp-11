@@ -18,10 +18,17 @@ app.get('/api/films/readall', (req, res) =>
 
 app.get('/api/films/read/:id', (req, res) =>
 {
-	console.log("readFilm");
+	console.log("read: " + req.params.id);
 	readFilm(req, res, req.params, (err, result) =>
 	{
-		res.send(JSON.stringify(result));
+		if (err)
+		{
+			res.send(JSON.stringify(err));
+		}
+		else
+		{
+			res.send(JSON.stringify(result));
+		}
 	});
 });
 
@@ -30,7 +37,14 @@ app.post('/api/films/create', (req, res) => {
 	parseBodyJson(req, (err, payload) => {
 		createFilm(req, res, payload, (err, result) =>
 		{
-			res.send(JSON.stringify(result));
+			if (err)
+			{
+				res.send(JSON.stringify(err));
+			}
+			else
+			{
+				res.send(JSON.stringify(result));
+			}
 		});
 	});
 });
@@ -39,7 +53,14 @@ app.post('/api/films/update', (req, res) => {
 	parseBodyJson(req, (err, payload) => {
 		updateFilm(req, res, payload, (err, result) =>
 		{
-			res.send(JSON.stringify(result));
+			if (err)
+			{
+				res.send(JSON.stringify(err));
+			}
+			else
+			{
+				res.send(JSON.stringify(result));
+			}
 		});
 	});
 });
@@ -48,7 +69,14 @@ app.post('/api/films/delete', (req, res) => {
 	parseBodyJson(req, (err, payload) => {
 		deleteFilm(req, res, payload, (err, result) =>
 		{
-			res.send(JSON.stringify(result));
+			if (err)
+			{
+				res.send(JSON.stringify(err));
+			}
+			else
+			{
+				res.send(JSON.stringify(result));
+			}
 		});
 	});
 });

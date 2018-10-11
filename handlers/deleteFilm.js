@@ -1,30 +1,32 @@
 let films = require("../top250.json");
 const valid = require("../valid.js");
+const fs = require('fs');
 const ErrorObject = { code: 400, message: 'Invalid request' };
 
 module.exports.deleteFilm = function(req, res, payload, cb) {
 	if (valid.valid(req.url, payload))
 	{
-		console.log(payload);
 		let deletedFilmId = payload.id;
+		let deletedFilmI = -1;
 		let flag = false;
 		for (let i = 0; i < films.length; i++)
 		{
 			if (films[i].id === deletedFilmId)
 			{
 				flag = true;
-				for (let j = films.indexOf(films[i]); j < films.length; j++)
+				deletedFilmI = i;
+				for (let j = i; j < films.length; j++)
 				{
 					films[j].position -= 1;
+					console.log("deleted");
 				}
 				break;
 			}
 		}
 		if (flag) {
-			let deletedFilm = films[deletedFilmId];
-			films.splice(deletedFilmId, 1);
+			cb(films[deletedFilmI]);
 			fs.writeFile("top250.json", JSON.stringify(films), "utf8", () => {});
-			cb(deletedFilm);
+			films.splice(deletedFilmI, 1);
 		}
 		else
 		{
